@@ -1,5 +1,5 @@
-from Client import Client
-from Server import Server
+from client.Client import Client
+from server.Server import Server
 
 
 if __name__ == "__main__":
