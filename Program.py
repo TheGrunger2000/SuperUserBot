@@ -6,14 +6,16 @@ if __name__ == "__main__":
     client = Client()
     server = Server()
 
-    client.set_server(server)
+    client.server = server
+    token = "1d10485eceee4565a2e2f51a4922e971"
+    lang = 'ru'
 
     a = True
     while a:
         message = input("Enter Your Message\n>> ")
 
-        client.set_message(message)
-        client.run()
+        client.message = message
+        client.run(token, lang)
         client.print_message()
 
         while True:
@@ -27,4 +29,4 @@ if __name__ == "__main__":
                 break
 
             else:
-                print("Error! Type \"Y\" or \"y\" or \"N\" or \"n\"")
+                print('Error! Type "Y" or "y" or "N" or "n')

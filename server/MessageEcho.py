@@ -1,22 +1,18 @@
+import apiai
+import json
+
+
 class MessageEcho:
 
     def __init__(self):
-        self._answers_dict = {
-            "Hello": "Dummy message",
-            "How are you?": "How DARE you!",
-            "Let's kill Java maybe?": "SURE!",
-            "Maybe 4:20?": "Why not?",
-            "What?": "Nothing...",
-            "?": "Well...",
-            "Oh really?": "Yeah... Why not?",
-            "You're Asshole": "F...k you!!!",
-            "Hard Bass?": "You're slave!",
-            "Wrong!!!": "Maybe... bvhjdsabvhkdabv",
-        }
+        pass
 
-    def run(self, message):
-        try:
-            answer = self._answers_dict[message]
-        except KeyError:
-            answer = "Nah, you're boring! Try again!"
+    def run(self, mesage, token, lang="en", session_id="aibot"):
+        assert mesage != None
+        request = apiai.ApiAI(token).text_request()
+        request.lang = lang
+        request.session_id = session_id
+        request.query = mesage
+        responseJson = json.loads(request.getresponse().read())
+        answer = responseJson['result']['fulfillment']['speech']
         return answer

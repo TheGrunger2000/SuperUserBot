@@ -7,13 +7,23 @@ class Client:
     def print_message(self):
         print(self._message)
 
-    def set_message(self, message):
+    @property
+    def message(self):
+        return self._message
+
+    @property
+    def server(self):
+        return self._server
+
+    @message.setter
+    def message(self, message):
         self._message = message
 
-    def set_server(self, server):
+    @server.setter
+    def server(self, server):
         self._server = server
 
-    def run(self):
-        self._server.set_message(self._message)
-        self._server.run()
-        self._message = self._server.get_answer()
+    def run(self, token, lang="en", session_id="aibot"):
+        self._server.message = self._message
+        self._server.run(token, lang, session_id)
+        self._message = self._server.answer
