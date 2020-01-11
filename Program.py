@@ -29,4 +29,4 @@ if __name__ == "__main__":
                 break
 
             else:
-                print('Error! Type "Y" or "y" or "N" or "n')
+                print('Error! Type "Y" or "y" or "N" or "n"')

@@ -12,7 +12,7 @@ class Server:
         return self._message
 
     @answer.setter
-    def message(self, message):
+    def answer(self, message):
         self._message = message
 
     def run(self, token, lang="en", session_id="aibot"):
