@@ -24,6 +24,6 @@ class Client:
         self._server = server
 
     def run(self, token, lang="en", session_id="aibot"):
-        self._server.message = self._message
+        self._server.answer = self._message
         self._server.run(token, lang, session_id)
         self._message = self._server.answer
