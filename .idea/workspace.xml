@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d2d3ec9-8e6f-4637-8d6f-feb075642e0f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Black.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Black.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/random_message.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.py" beforeDir="false" afterPath="$PROJECT_DIR$/Program.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/Client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client/Client.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/Client.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/MessageEcho.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/Server.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/__init__.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +39,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Black\PycharmProjects\Python_Objects" />
       <recent name="C:\Users\Black\PycharmProjects\Python_Objects\server" />
       <recent name="C:\Users\Black\PycharmProjects\Python_Objects\client" />
     </key>
@@ -51,7 +56,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.bot">
     <configuration name="Program" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Objects" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -64,7 +69,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Program.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Black\PycharmProjects\Python_Objects\bot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="bot" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Objects" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bot.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -75,6 +101,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.bot" />
         <item itemvalue="Python.Program" />
       </list>
     </recent_temporary>
@@ -111,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578846490056</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="FAIL - need refactor">
+      <created>1578850707744</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1578850707744</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -131,6 +165,7 @@
     <MESSAGE value="Added message echo" />
     <MESSAGE value="Little fix-ups" />
     <MESSAGE value="Telebot was Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Telebot was Added" />
+    <MESSAGE value="FAIL - need refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="FAIL - need refactor" />
   </component>
 </project>
