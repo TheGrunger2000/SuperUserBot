@@ -1,4 +1,5 @@
 import telebot
+from server.Server import Server
 
 
 class Client:
@@ -7,17 +8,22 @@ class Client:
         self._bot_token = '809780880:AAHX84SLr1b_NAgpD_TqgOC_ERW1PkA19pw'
         self.bot = telebot.TeleBot(self._bot_token)
 
-        self._server = None
+        self._server = Server()
 
-    @property
-    def server(self):
-        return self._server
+        self.proxy_address = None
+        self.proxy_port = None
 
-    @server.setter
-    def server(self, server):
-        self._server = server
+    def set_proxy_address(self, proxy_address):
+        self.proxy_address = proxy_address
+
+    def set_proxy_port(self, proxy_port):
+        self.proxy_port = proxy_port
 
     def run(self, token, lang="en", session_id="aibot"):
+        telebot.apihelper.proxy = {
+            'https': 'socks5://userproxy:password@{}:{}'.format(self.proxy_address, self.proxy_port)
+        }
+
         @self.bot.message_handler(commands=['start'])
         def start_message(message):
             self.bot.send_message(message.chat.id, 'Привет, ты написал мне /start')
@@ -29,4 +35,4 @@ class Client:
             answer = self._server.answer
             self.bot.send_message(message.chat.id, answer)
 
-        self.bot.polling()
+        self.bot.polling(none_stop=True, interval=0)
