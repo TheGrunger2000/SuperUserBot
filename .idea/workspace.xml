@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8d2d3ec9-8e6f-4637-8d6f-feb075642e0f" name="Default Changelist" comment="refactored. Doesn't work">
-      <change afterPath="$PROJECT_DIR$/proxy.py" afterDir="false" />
+    <list default="true" id="8d2d3ec9-8e6f-4637-8d6f-feb075642e0f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/Objects.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Objects.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/random_message.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1578853720082</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Need server">
+      <created>1578870688137</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1578870688168</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -171,6 +178,7 @@
     <MESSAGE value="Telebot was Added" />
     <MESSAGE value="FAIL - need refactor" />
     <MESSAGE value="refactored. Doesn't work" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored. Doesn't work" />
+    <MESSAGE value="Need server" />
+    <option name="LAST_COMMIT_MESSAGE" value="Need server" />
   </component>
 </project>
