@@ -1,26 +1,26 @@
-import telebot
-from random_message import random_message
+import logging
+
+from aiogram import Bot, Dispatcher, executor, types
+from ai_message import ai_message
+API_TOKEN = 'TOKEN'
+PROXY_URL = 'socks5://192.169.217.106:44659'  # Or 'socks5://host:port'
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
+# Initialize bot and dispatcher
+bot = Bot(token=API_TOKEN, proxy=PROXY_URL)
+dp = Dispatcher(bot)
 
 
-PROXY_ADDRESS = "142.93.72.206"
-PROXY_PORT = "3128"
-
-bot = telebot.TeleBot('809780880:AAHX84SLr1b_NAgpD_TqgOC_ERW1PkA19pw')
-
-telebot.apihelper.proxy = {
-    'https': 'socks5://{}:{}'.format(PROXY_ADDRESS, PROXY_PORT)
-}
+@dp.message_handler(commands=['start', 'help'])
+async def send_welcome(message: types.Message):
+    await message.answer("Hi, I'm SuperUserBot.\nI'm in the process of developing.")
 
 
-@bot.message_handler(commands=['start'])
-def start_message(message):
-    bot.send_message(message.chat.id, 'Привет, ты написал мне /start')
+@dp.message_handler()
+async def echo(message: types.Message):
+    await message.answer(ai_message(message.text))
 
-
-@bot.message_handler(content_types=["text"])
-def handle_text(message):
-    answer = random_message(message.from_user.text, lang='ru')
-    bot.send_message(message.from_user.id, answer)
-
-
-bot.polling(none_stop=True, interval=0)
+if __name__ == '__main__':
+    executor.start_polling(dp, skip_updates=True)
