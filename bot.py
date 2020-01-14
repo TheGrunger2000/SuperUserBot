@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 import logging
 from ai_message import ai_message
 
 from aiogram import Bot, Dispatcher, types, executor
-API_TOKEN = '809780880:AAHX84SLr1b_NAgpD_TqgOC_ERW1PkA19pw'
+API_TOKEN = 'TOKEN'
 PROXY_URL = 'socks5://192.169.214.83:37003'  # Or 'socks5://host:port'
 
 # Configure logging

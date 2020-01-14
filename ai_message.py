@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 import apiai
 import json
 import pprint
 
 
-TOKEN = "1d10485eceee4565a2e2f51a4922e971"
+TOKEN = "TOKEN"
 
 
 def ai_message(message, lang="ru", session_id="aibot"):
