@@ -1,8 +1,9 @@
 import logging
+from ai_message import ai_message
 
 from aiogram import Bot, Dispatcher, types, executor
-API_TOKEN = 'TOKEN'
-PROXY_URL = 'socks5://192.169.139.161:8975'  # Or 'socks5://host:port'
+API_TOKEN = '809780880:AAHX84SLr1b_NAgpD_TqgOC_ERW1PkA19pw'
+PROXY_URL = 'socks5://192.169.214.83:37003'  # Or 'socks5://host:port'
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -15,6 +16,12 @@ dp = Dispatcher(bot)
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
     await message.answer("Hi, I'm SuperUserBot.\nI'm in the process of developing.")
+
+
+@dp.message_handler(commands=['d', 'bot'])
+async def echo(message: types.Message):
+    print(message.text)
+    await message.answer(ai_message(message.text))
 
 
 if __name__ == '__main__':
