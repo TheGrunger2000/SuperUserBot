@@ -12,11 +12,11 @@ def ai_message(message, lang="ru", session_id="aibot"):
     request = apiai.ApiAI(TOKEN).text_request()
     request.lang = lang
     request.session_id = session_id
-    request.query = message.replace("/d", "")
+    request.query = message.replace("/d" or "/bot", "")
     responseJson = json.loads(request.getresponse().read())
     pprint.pprint(responseJson)
     answer_text = responseJson['result']['fulfillment']['speech']
-    what = "+".join(message.replace("/d", "").split(" ")[1:])
+    what = "+".join(message.replace("/d" or "/bot", "").split(" ")[1:])
     if responseJson['result']['metadata']['intentName'] == 'google.search':
         answer = f'{answer_text}\nhttps://www.google.com/search?ei=Qb8cXqeHHdD76QTxqZHABw&q={what}'
     elif responseJson['result']['metadata']['intentName'] == 'youtube.search':
