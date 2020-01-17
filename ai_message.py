@@ -1,33 +1,36 @@
-# -*- coding: utf-8 -*-
-import apiai
-import json
+from auth import get_setting
+import dialogflow_v2 as dialogflow
+import os
 import pprint
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = get_setting(
+    "API Keys", "google_private_key_path")
+PROJECT_ID = get_setting("API Keys", "dialogflow_project_id")
 
 
-TOKEN = "TOKEN"
+def get_response(text, session_id="aibot", language_code="ru"):
+    session_client = dialogflow.SessionsClient()
+    session = session_client.session_path(PROJECT_ID, session_id)
 
+    if text:
+        text_input = dialogflow.types.TextInput(
+            text=text, language_code=language_code)
+        query_input = dialogflow.types.QueryInput(text=text_input)
+        response = session_client.detect_intent(
+            session=session, query_input=query_input)
 
-def ai_message(message, lang="ru", session_id="aibot"):
-
-    assert message is not None
-    request = apiai.ApiAI(TOKEN).text_request()
-    request.lang = lang
-    request.session_id = session_id
-    request.query = message.replace("/bot", "")
-
-    responseJson = json.loads(request.getresponse().read())
-    pprint.pprint(responseJson)
-    answer_text = responseJson['result']['fulfillment']['speech']
-    what = "+".join(message.replace("/bot", "").split(" ")[1:])
-    search_data = responseJson['result']['parameters']
-
-    answer = None
-    if 'google_search' in search_data:
-        if search_data['google_search'] == ['search'] or 'search':
-            answer = f'{answer_text}\nhttps://www.google.com/search?q={what}'
-    elif 'youtube_search' in search_data:
-        if search_data['youtube_search'] == ['video'] or 'video':
-            answer = f'{answer_text}\nhttps://www.youtube.com/results?search_query={what}'
+        return response
     else:
-        answer = answer_text
+        raise ValueError("message cannot be empty")
+
+
+def message_check(response):
+    answer = response.query_result.fulfillment_text
+    if response.query_result.parameters.fields.get("google"):
+        what = response.query_result.parameters.fields['any'].string_value.replace(
+            " ", "+")
+        answer = f'{answer}\nhttps://www.google.com/search?q={what}'
     return answer
+
+
+def ai_message(message):
+    return message_check(get_response(message))
