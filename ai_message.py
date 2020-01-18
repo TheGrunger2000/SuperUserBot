@@ -1,8 +1,10 @@
-from auth import get_setting
+from os import environ
+
 from dialogflow_v2 import SessionsClient
 from dialogflow_v2.types import TextInput, QueryInput
-from os import environ
 from google.protobuf.json_format import MessageToDict
+
+from auth import get_setting
 
 environ['GOOGLE_APPLICATION_CREDENTIALS'] = get_setting(
     'API Keys', 'google_private_key_path')
@@ -21,8 +23,7 @@ def get_response(text, session_id='aibot', language_code='ru'):
             session=session, query_input=query_input)
 
         return MessageToDict(response.query_result)
-    else:
-        raise ValueError('message cannot be empty')
+    raise ValueError('message cannot be empty')
 
 
 def action_check(response):
@@ -56,14 +57,14 @@ def youtube_search(what):
 
 
 def audio_search(what):
-    return 'Found'
+    return
 
 
 def gif_search(what):
     return 'Found'
 
 
-test_messages = ['Найди гифку запрос', 'Найди музыку запрос',
+TEST_MESSAGES = ['Найди гифку запрос', 'Найди музыку запрос',
                  'Найди в ютубе запрос', 'Найди в гугле запрос', 'Привет', 'вльвву']
-for msg in test_messages:
+for msg in TEST_MESSAGES:
     print(ai_message(msg))
