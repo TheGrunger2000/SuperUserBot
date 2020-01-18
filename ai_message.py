@@ -33,14 +33,14 @@ def action_check(response):
                    'gif_search': gif_search}
     action = response.get('action')
     parameters = response.get('parameters')
-    answer_mesage = response.get('fulfillmentText')
+    answer_message = response.get('fulfillmentText')
     search_answer = None
     if action:
         if parameters:
             search_string = parameters.get('any')
             if search_string:
                 search_answer = action_dict[action](search_string)
-    return answer_mesage, search_answer
+    return answer_message, search_answer
 
 
 def ai_message(message):
