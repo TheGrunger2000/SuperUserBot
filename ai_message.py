@@ -1,33 +1,70 @@
-# -*- coding: utf-8 -*-
-import apiai
-import json
-import pprint
+from os import environ
+
+from dialogflow_v2 import SessionsClient
+from dialogflow_v2.types import TextInput, QueryInput
+from google.protobuf.json_format import MessageToDict
+
+from auth import get_setting
+
+environ['GOOGLE_APPLICATION_CREDENTIALS'] = get_setting(
+    'API Keys', 'google_private_key_path')
+PROJECT_ID = get_setting('API Keys', 'dialogflow_project_id')
 
 
-TOKEN = "TOKEN"
+def get_response(text, session_id='aibot', language_code='ru'):
+    session_client = SessionsClient()
+    session = session_client.session_path(PROJECT_ID, session_id)
+
+    if text:
+        text_input = TextInput(
+            text=text, language_code=language_code)
+        query_input = QueryInput(text=text_input)
+        response = session_client.detect_intent(
+            session=session, query_input=query_input)
+
+        return MessageToDict(response.query_result)
+    raise ValueError('message cannot be empty')
 
 
-def ai_message(message, lang="ru", session_id="aibot"):
+def action_check(response):
+    action_dict = {'google_search': google_search,
+                   'youtube_search': youtube_search,
+                   'audio_search': audio_search,
+                   'gif_search': gif_search}
+    action = response.get('action')
+    parameters = response.get('parameters')
+    answer_mesage = response.get('fulfillmentText')
+    search_answer = None
+    if action:
+        if parameters:
+            search_string = parameters.get('any')
+            if search_string:
+                search_answer = action_dict[action](search_string)
+    return answer_mesage, search_answer
 
-    assert message is not None
-    request = apiai.ApiAI(TOKEN).text_request()
-    request.lang = lang
-    request.session_id = session_id
-    request.query = message.replace("/bot", "")
 
-    responseJson = json.loads(request.getresponse().read())
-    pprint.pprint(responseJson)
-    answer_text = responseJson['result']['fulfillment']['speech']
-    what = "+".join(message.replace("/bot", "").split(" ")[1:])
-    search_data = responseJson['result']['parameters']
+def ai_message(message):
+    answer_mesage, search_answer = action_check(get_response(message))
+    return f'{answer_mesage}\n{search_answer}'
 
-    answer = None
-    if 'google_search' in search_data:
-        if search_data['google_search'] == ['search'] or 'search':
-            answer = f'{answer_text}\nhttps://www.google.com/search?q={what}'
-    elif 'youtube_search' in search_data:
-        if search_data['youtube_search'] == ['video'] or 'video':
-            answer = f'{answer_text}\nhttps://www.youtube.com/results?search_query={what}'
-    else:
-        answer = answer_text
-    return answer
+
+def google_search(what):
+    return 'Found'
+
+
+def youtube_search(what):
+    return 'Found'
+
+
+def audio_search(what):
+    return
+
+
+def gif_search(what):
+    return 'Found'
+
+
+TEST_MESSAGES = ['Найди гифку запрос', 'Найди музыку запрос',
+                 'Найди в ютубе запрос', 'Найди в гугле запрос', 'Привет', 'вльвву']
+for msg in TEST_MESSAGES:
+    print(ai_message(msg))
