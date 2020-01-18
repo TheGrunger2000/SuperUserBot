@@ -1,36 +1,69 @@
 from auth import get_setting
-import dialogflow_v2 as dialogflow
-import os
-import pprint
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = get_setting(
-    "API Keys", "google_private_key_path")
-PROJECT_ID = get_setting("API Keys", "dialogflow_project_id")
+from dialogflow_v2 import SessionsClient
+from dialogflow_v2.types import TextInput, QueryInput
+from os import environ
+from google.protobuf.json_format import MessageToDict
+
+environ['GOOGLE_APPLICATION_CREDENTIALS'] = get_setting(
+    'API Keys', 'google_private_key_path')
+PROJECT_ID = get_setting('API Keys', 'dialogflow_project_id')
 
 
-def get_response(text, session_id="aibot", language_code="ru"):
-    session_client = dialogflow.SessionsClient()
+def get_response(text, session_id='aibot', language_code='ru'):
+    session_client = SessionsClient()
     session = session_client.session_path(PROJECT_ID, session_id)
 
     if text:
-        text_input = dialogflow.types.TextInput(
+        text_input = TextInput(
             text=text, language_code=language_code)
-        query_input = dialogflow.types.QueryInput(text=text_input)
+        query_input = QueryInput(text=text_input)
         response = session_client.detect_intent(
             session=session, query_input=query_input)
 
-        return response
+        return MessageToDict(response.query_result)
     else:
-        raise ValueError("message cannot be empty")
+        raise ValueError('message cannot be empty')
 
 
-def message_check(response):
-    answer = response.query_result.fulfillment_text
-    if response.query_result.parameters.fields.get("google"):
-        what = response.query_result.parameters.fields['any'].string_value.replace(
-            " ", "+")
-        answer = f'{answer}\nhttps://www.google.com/search?q={what}'
-    return answer
+def action_check(response):
+    action_dict = {'google_search': google_search,
+                   'youtube_search': youtube_search,
+                   'audio_search': audio_search,
+                   'gif_search': gif_search}
+    action = response.get('action')
+    parameters = response.get('parameters')
+    answer_mesage = response.get('fulfillmentText')
+    search_answer = None
+    if action:
+        if parameters:
+            search_string = parameters.get('any')
+            if search_string:
+                search_answer = action_dict[action](search_string)
+    return answer_mesage, search_answer
 
 
 def ai_message(message):
-    return message_check(get_response(message))
+    answer_mesage, search_answer = action_check(get_response(message))
+    return f'{answer_mesage}\n{search_answer}'
+
+
+def google_search(what):
+    return 'Found'
+
+
+def youtube_search(what):
+    return 'Found'
+
+
+def audio_search(what):
+    return 'Found'
+
+
+def gif_search(what):
+    return 'Found'
+
+
+test_messages = ['Найди гифку запрос', 'Найди музыку запрос',
+                 'Найди в ютубе запрос', 'Найди в гугле запрос', 'Привет', 'вльвву']
+for msg in test_messages:
+    print(ai_message(msg))
